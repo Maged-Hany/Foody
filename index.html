@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>FOODY — Your health, in focus</title>
+<style>
+:root{color-scheme:dark;--bg:#000;--panel:#080808;--surface:#101010;--line:#292929;--white:#fff;--muted:#a3a3a3;--soft:#707070}
+*{box-sizing:border-box}html{min-height:100%;background:#000}body{margin:0;background:#000;color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}
+.topbar{height:78px;border-bottom:1px solid #1b1b1b;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,76px)}
+.brand{display:flex;align-items:center;gap:12px;font-size:25px;font-weight:800;letter-spacing:-1.2px}.brand-mark{width:35px;height:35px;display:grid;place-items:center}
+.brand-mark svg{width:34px;height:34px;fill:white}
+.locale-wrap{position:relative}.locale-button{border:1px solid var(--line);background:#050505;color:#fff;border-radius:30px;padding:10px 15px;display:flex;align-items:center;gap:10px}.locale-button .flag{font-size:19px}.locale-menu{position:absolute;right:0;top:calc(100% + 9px);z-index:5;min-width:190px;background:#101010;border:1px solid #333;border-radius:14px;padding:6px;box-shadow:0 18px 45px #000}
+.locale-option{width:100%;border:0;background:transparent;color:white;text-align:start;padding:11px;border-radius:9px;display:flex;gap:11px;align-items:center}.locale-option:hover,.locale-option[aria-selected=true]{background:#242424}
+.layout{max-width:1440px;margin:0 auto;min-height:calc(100vh - 138px);padding:36px clamp(20px,4vw,60px);display:grid;grid-template-columns:minmax(280px,.82fr) minmax(480px,1.18fr);gap:clamp(30px,5vw,76px);align-items:center}
+.hero{padding:30px 0 35px;max-width:480px}.hero-logo{width:75px;height:75px;margin-bottom:22px}.hero-logo svg{width:100%;height:100%;fill:#fff}.hero h1{font-size:clamp(46px,6vw,76px);line-height:.98;letter-spacing:-4px;margin:0 0 22px;font-weight:800}.hero p{font-size:clamp(18px,2vw,24px);line-height:1.45;color:#c5c5c5;margin:0;max-width:420px}.hero p strong{color:#fff}.features{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:1px solid #222;padding-top:23px;gap:8px}.feature{text-align:center;color:#c4c4c4;font-size:12px;line-height:1.4}.feature svg{width:25px;height:25px;display:block;margin:0 auto 10px;stroke:#fff;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.auth-card{border:1px solid #303030;border-radius:24px;background:linear-gradient(145deg,#080808,#020202 70%);overflow:visible;box-shadow:0 24px 80px #000;max-width:760px;width:100%;justify-self:end}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #242424;padding:0 24px}.tab{border:0;background:transparent;color:#888;padding:22px 8px 19px;font-size:16px;font-weight:650;position:relative}.tab.active{color:white}.tab.active:after{content:"";height:3px;border-radius:4px;background:white;position:absolute;bottom:-1px;left:10%;right:10%}
+.form-area{padding:clamp(25px,4vw,42px)}.form-heading{margin-bottom:26px}.form-heading h2{font-size:clamp(27px,3vw,36px);letter-spacing:-1.2px;margin:0 0 8px}.form-heading p{margin:0;color:var(--muted);font-size:15px}
+.fields{display:grid;gap:13px}.field{position:relative}.field input{width:100%;height:54px;border:1px solid #303030;border-radius:14px;background:#0c0c0c;color:white;padding:0 17px;outline:none;transition:border .15s}.field input:focus{border-color:#aaa}.field input::placeholder{color:#888}
+.phone-row{display:grid;grid-template-columns:132px 1fr;gap:10px}.country-select{height:54px;border:1px solid #303030;border-radius:14px;background:#0c0c0c;color:#fff;padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:7px}.country-select select{width:100%;background:transparent;color:white;border:0;outline:0;appearance:none}.country-select option{background:#111;color:#fff}
+.name-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.password-wrap input{padding-right:52px}.toggle-password{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:#aaa;font-size:12px;padding:6px}
+.forgot{display:flex;justify-content:flex-end;margin-top:2px}.text-button{border:0;background:none;color:#ddd;font-size:13px;padding:5px 0}.primary{height:55px;width:100%;border:0;border-radius:30px;background:#fff;color:#000;font-weight:750;font-size:16px;margin-top:8px;transition:transform .15s,background .15s}.primary:hover{background:#e8e8e8;transform:translateY(-1px)}
+.separator{display:flex;align-items:center;gap:14px;color:#888;font-size:13px;margin:21px 0}.separator:before,.separator:after{content:"";height:1px;background:#303030;flex:1}
+.google{height:52px;width:100%;border:1px solid #454545;border-radius:28px;background:transparent;color:white;font-weight:600}.google b{font-size:18px;margin-right:8px;color:#fff}
+.switch-copy{text-align:center;color:#999;font-size:13px;margin:22px 0 0}.switch-copy button{border:0;background:none;color:white;font-weight:700}
+.legal{text-align:center;color:#666;font-size:11px;padding:0 20px 25px}.legal a{color:#aaa;text-decoration:none;margin:0 8px}
+.notice{display:none;margin-top:14px;border:1px solid #444;border-radius:10px;padding:11px 13px;color:#ddd;font-size:13px}.notice.show{display:block}
+.footer{border-top:1px solid #1b1b1b;min-height:60px;padding:18px clamp(20px,5vw,76px);display:flex;justify-content:space-between;align-items:center;color:#666;font-size:11px}.footer a{color:#999;text-decoration:none;margin-left:18px}
+[dir=rtl] .locale-menu{right:auto;left:0}[dir=rtl] .toggle-password{right:auto;left:14px}[dir=rtl] .password-wrap input{padding-right:17px;padding-left:52px}[dir=rtl] .forgot{justify-content:flex-start}[dir=rtl] .google b{margin-right:0;margin-left:8px}
+@media(max-width:900px){.layout{grid-template-columns:1fr;max-width:650px;gap:18px;padding-top:25px}.hero{padding:8px 0 0;text-align:center;margin:auto}.hero-logo{width:50px;height:50px;margin:0 auto 12px}.hero h1{font-size:48px;letter-spacing:-2px;margin-bottom:10px}.hero p{font-size:16px}.features{margin-top:22px;padding-top:16px}.auth-card{justify-self:center}.footer{gap:12px;flex-wrap:wrap;justify-content:center}}
+@media(max-width:520px){.topbar{height:66px;padding:0 16px}.brand{font-size:21px}.brand-mark,.brand-mark svg{width:29px;height:29px}.locale-button{padding:8px 10px;font-size:13px}.layout{padding:18px 14px 28px;gap:20px}.hero h1{font-size:40px}.hero p{font-size:14px}.features{margin-top:18px}.feature{font-size:10px}.feature svg{width:21px;height:21px}.auth-card{border-radius:18px}.tabs{padding:0 10px}.tab{font-size:14px;padding:17px 4px}.form-area{padding:22px 16px}.form-heading h2{font-size:27px}.phone-row{grid-template-columns:112px 1fr;gap:7px}.field input,.country-select{height:50px;font-size:13px}.name-row{gap:7px}.footer{font-size:10px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M3 7h42L35 17H13L3 7zm9 14h27L29 31H18l-6-10zm8 14h15l-7 8H22l-2-8z"/></svg></span>FOODY</div>
+  <div class="locale-wrap">
+    <button class="locale-button" id="localeButton" aria-haspopup="true" aria-expanded="false"><span>◎</span><span id="localeCurrent">English</span><span class="flag" id="localeFlag">🇺🇸</span><span>⌄</span></button>
+    <div class="locale-menu" id="localeMenu" hidden role="listbox">
+      <button class="locale-option" data-lang="en" aria-selected="true"><span>🇺🇸</span> English</button>
+      <button class="locale-option" data-lang="fr"><span>🇫🇷</span> Français</button>
+      <button class="locale-option" data-lang="ar"><span>🇪🇬</span> العربية (مصر)</button>
+      <button class="locale-option" data-lang="es"><span>🇪🇸</span> Español</button>
+      <button class="locale-option" data-lang="pt"><span>🇵🇹</span> Português</button>
+    </div>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <div class="hero-logo"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M3 7h42L35 17H13L3 7zm9 14h27L29 31H18l-6-10zm8 14h15l-7 8H22l-2-8z"/></svg></div>
+    <h1>FOODY</h1>
+    <p id="heroText">Track your <strong>nutrition</strong>, reach your <strong>goals</strong>.</p>
+    <div class="features">
+      <div class="feature"><svg viewBox="0 0 24 24"><path d="M12 3s-6 7-6 12a6 6 0 0 0 12 0c0-5-6-12-6-12z"/></svg><span id="f1">Track<br>Calories</span></div>
+      <div class="feature"><svg viewBox="0 0 24 24"><path d="M3 10v4m3-7v10m12-10v10m3-7v4M6 12h12"/></svg><span id="f2">Plan<br>Workouts</span></div>
+      <div class="feature"><svg viewBox="0 0 24 24"><path d="M4 20V12h4v8H4zm6 0V7h4v13h-4zm6 0V3h4v17h-4z"/></svg><span id="f3">Reach<br>Your Goals</span></div>
+      <div class="feature"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5-8.8 11-8.8 11s-8.8-6-8.8-11a4.8 4.8 0 0 1 8.8-2.5 4.8 4.8 0 0 1 8.8 2.5z"/></svg><span id="f4">Live<br>Healthier</span></div>
+    </div>
+  </section>
+  <section class="auth-card" aria-label="Account access">
+    <div class="tabs">
+      <button class="tab active" id="loginTab" type="button">Log In</button>
+      <button class="tab" id="registerTab" type="button">Create Account</button>
+    </div>
+    <div class="form-area">
+      <div class="form-heading"><h2 id="formTitle">Welcome back</h2><p id="formSubtitle">Log in to continue your journey.</p></div>
+      <form id="authForm">
+        <div class="fields" id="loginFields">
+          <div class="field"><input type="text" autocomplete="username" placeholder="Email or username" aria-label="Email or username" required></div>
+          <div class="field password-wrap"><input type="password" id="loginPassword" autocomplete="current-password" placeholder="Password" aria-label="Password" required><button class="toggle-password" type="button" data-target="loginPassword" aria-label="Show password">Show</button></div>
+          <div class="forgot"><button class="text-button" type="button" id="forgotButton">Forgot password?</button></div>
+        </div>
+        <div class="fields" id="registerFields" hidden>
+          <div class="phone-row">
+            <label class="country-select"><span id="phoneFlag">🇪🇬</span><select id="countryCode" aria-label="Country calling code"><option value="+20" selected>+20 Egypt</option><option value="+1">+1 USA</option><option value="+33">+33 France</option><option value="+34">+34 Spain</option><option value="+351">+351 Portugal</option><option value="+55">+55 Brazil</option><option value="+44">+44 UK</option><option value="+971">+971 UAE</option><option value="+966">+966 Saudi Arabia</option></select></label>
+            <div class="field"><input type="tel" autocomplete="tel-national" placeholder="Phone number" aria-label="Phone number" required></div>
+          </div>
+          <div class="field"><input type="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required></div>
+          <div class="field"><input type="text" autocomplete="username" placeholder="Username" aria-label="Username" required></div>
+          <div class="name-row"><div class="field"><input type="text" autocomplete="given-name" placeholder="First name" aria-label="First name" required></div><div class="field"><input type="text" autocomplete="family-name" placeholder="Last name" aria-label="Last name" required></div></div>
+          <div class="field password-wrap"><input type="password" id="registerPassword" autocomplete="new-password" placeholder="Password" aria-label="Password" minlength="8" required><button class="toggle-password" type="button" data-target="registerPassword" aria-label="Show password">Show</button></div>
+        </div>
+        <button class="primary" type="submit" id="submitButton">Log In&nbsp; →</button>
+      </form>
+      <div class="separator"><span id="orText">or</span></div>
+      <button class="google" type="button" id="googleButton"><b>G</b><span id="googleText">Continue with Google</span></button>
+      <p class="switch-copy"><span id="switchPrompt">Don't have an account?</span> <button id="switchAction" type="button">Create one</button></p>
+      <div class="notice" id="notice" role="status"></div>
+    </div>
+    <div class="legal"><span id="legalText">By continuing, you agree to FOODY's</span> <a href="#">Terms of Service</a> · <a href="#">Privacy Policy</a></div>
+  </section>
+</main>
+<footer class="footer"><span>© 2026 FOODY. All rights reserved.</span><span><a href="#">Terms</a><a href="#">Privacy</a></span></footer>
+<script>
+const copy={
+en:{name:"English",flag:"🇺🇸",hero:'Track your <strong>nutrition</strong>, reach your <strong>goals</strong>.',f:["Track<br>Calories","Plan<br>Workouts","Reach<br>Your Goals","Live<br>Healthier"],login:"Log In",register:"Create Account",welcome:"Welcome back",loginSub:"Log in to continue your journey.",createTitle:"Create your account",createSub:"Join FOODY and start your healthier journey.",emailUser:"Email or username",password:"Password",forgot:"Forgot password?",phone:"Phone number",email:"Email address",username:"Username",first:"First name",last:"Last name",submitLogin:"Log In",submitRegister:"Create Account",google:"Continue with Google",or:"or",switchLogin:"Don't have an account?",switchRegister:"Already have an account?",createOne:"Create one",signIn:"Log in",legal:"By continuing, you agree to FOODY's",forgotNotice:"Password recovery will be available when account services are connected.",googleNotice:"Google sign-in will be connected when authentication is configured.",demo:"This is a front-end demo. Connect an authentication service to create accounts and sign in."},
+fr:{name:"Français",flag:"🇫🇷",hero:'Suivez votre <strong>alimentation</strong> et atteignez vos <strong>objectifs</strong>.',f:["Suivre les<br>calories","Planifier les<br>entraînements","Atteindre vos<br>objectifs","Vivre plus<br>sainement"],login:"Connexion",register:"Créer un compte",welcome:"Bon retour",loginSub:"Connectez-vous pour continuer.",createTitle:"Créez votre compte",createSub:"Rejoignez FOODY et prenez soin de votre santé.",emailUser:"E-mail ou nom d’utilisateur",password:"Mot de passe",forgot:"Mot de passe oublié ?",phone:"Numéro de téléphone",email:"Adresse e-mail",username:"Nom d’utilisateur",first:"Prénom",last:"Nom",submitLogin:"Se connecter",submitRegister:"Créer un compte",google:"Continuer avec Google",or:"ou",switchLogin:"Pas encore de compte ?",switchRegister:"Vous avez déjà un compte ?",createOne:"Créer un compte",signIn:"Se connecter",legal:"En continuant, vous acceptez les",forgotNotice:"La récupération du mot de passe sera disponible après la connexion du service de compte.",googleNotice:"La connexion Google sera disponible après configuration.",demo:"Ceci est une démo de l’interface. Connectez un service d’authentification pour activer les comptes."},
+ar:{name:"العربية (مصر)",flag:"🇪🇬",hero:'تابع <strong>تغذيتك</strong> وحقق <strong>أهدافك</strong>.',f:["تابع<br>السعرات","خطط<br>لتمارينك","حقق<br>أهدافك","عِش<br>بصحة أفضل"],login:"تسجيل الدخول",register:"إنشاء حساب",welcome:"أهلاً بعودتك",loginSub:"سجّل الدخول لمتابعة رحلتك.",createTitle:"أنشئ حسابك",createSub:"انضم إلى FOODY وابدأ رحلتك نحو صحة أفضل.",emailUser:"البريد الإلكتروني أو اسم المستخدم",password:"كلمة المرور",forgot:"نسيت كلمة المرور؟",phone:"رقم الموبايل",email:"البريد الإلكتروني",username:"اسم المستخدم",first:"الاسم الأول",last:"اسم العائلة",submitLogin:"تسجيل الدخول",submitRegister:"إنشاء حساب",google:"المتابعة باستخدام Google",or:"أو",switchLogin:"ليس لديك حساب؟",switchRegister:"لديك حساب بالفعل؟",createOne:"أنشئ حساباً",signIn:"سجّل الدخول",legal:"بالمتابعة، أنت توافق على",forgotNotice:"استعادة كلمة المرور ستكون متاحة بعد ربط خدمة الحسابات.",googleNotice:"سيتم تفعيل تسجيل الدخول عبر Google بعد إعداد الخدمة.",demo:"دي معاينة للواجهة فقط. لازم نربط خدمة تسجيل الدخول لإنشاء الحسابات وتسجيل الدخول."},
+es:{name:"Español",flag:"🇪🇸",hero:'Controla tu <strong>nutrición</strong> y alcanza tus <strong>objetivos</strong>.',f:["Controla las<br>calorías","Planifica tus<br>entrenamientos","Alcanza tus<br>objetivos","Vive más<br>saludable"],login:"Iniciar sesión",register:"Crear cuenta",welcome:"Qué bueno verte",loginSub:"Inicia sesión para continuar.",createTitle:"Crea tu cuenta",createSub:"Únete a FOODY y comienza una vida más saludable.",emailUser:"Correo o nombre de usuario",password:"Contraseña",forgot:"¿Olvidaste tu contraseña?",phone:"Número de teléfono",email:"Correo electrónico",username:"Nombre de usuario",first:"Nombre",last:"Apellido",submitLogin:"Iniciar sesión",submitRegister:"Crear cuenta",google:"Continuar con Google",or:"o",switchLogin:"¿No tienes una cuenta?",switchRegister:"¿Ya tienes una cuenta?",createOne:"Crear una",signIn:"Iniciar sesión",legal:"Al continuar, aceptas los",forgotNotice:"La recuperación de contraseña estará disponible al conectar el servicio de cuentas.",googleNotice:"El acceso con Google estará disponible al configurar la autenticación.",demo:"Esta es una demostración visual. Conecta un servicio de autenticación para activar las cuentas."},
+pt:{name:"Português",flag:"🇵🇹",hero:'Acompanhe a sua <strong>nutrição</strong> e alcance os seus <strong>objetivos</strong>.',f:["Acompanhe as<br>calorias","Planeie os<br>treinos","Alcance os<br>objetivos","Viva de forma<br>mais saudável"],login:"Entrar",register:"Criar conta",welcome:"Bem-vindo de volta",loginSub:"Entre para continuar a sua jornada.",createTitle:"Crie a sua conta",createSub:"Junte-se à FOODY e comece uma vida mais saudável.",emailUser:"E-mail ou nome de utilizador",password:"Palavra-passe",forgot:"Esqueceu-se da palavra-passe?",phone:"Número de telefone",email:"Endereço de e-mail",username:"Nome de utilizador",first:"Nome próprio",last:"Apelido",submitLogin:"Entrar",submitRegister:"Criar conta",google:"Continuar com Google",or:"ou",switchLogin:"Ainda não tem conta?",switchRegister:"Já tem uma conta?",createOne:"Criar conta",signIn:"Entrar",legal:"Ao continuar, aceita os",forgotNotice:"A recuperação da palavra-passe estará disponível após ligar o serviço de contas.",googleNotice:"O acesso Google ficará disponível após configurar a autenticação.",demo:"Esta é uma demonstração visual. Ligue um serviço de autenticação para ativar as contas."}
+};
+let lang="en",mode="login";
+const $=id=>document.getElementById(id);
+function setMode(next){mode=next;const t=copy[lang];$("loginTab").classList.toggle("active",mode==="login");$("registerTab").classList.toggle("active",mode==="register");$("loginFields").hidden=mode!=="login";$("registerFields").hidden=mode!=="register";$("formTitle").textContent=mode==="login"?t.welcome:t.createTitle;$("formSubtitle").textContent=mode==="login"?t.loginSub:t.createSub;$("submitButton").textContent=(mode==="login"?t.submitLogin:t.submitRegister)+"  →";$("switchPrompt").textContent=mode==="login"?t.switchLogin:t.switchRegister;$("switchAction").textContent=mode==="login"?t.createOne:t.signIn;$("notice").classList.remove("show");}
+function setLanguage(code){lang=code;const t=copy[lang];document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";$("localeCurrent").textContent=t.name;$("localeFlag").textContent=t.flag;$("heroText").innerHTML=t.hero;["f1","f2","f3","f4"].forEach((id,i)=>$(id).innerHTML=t.f[i]);$("loginTab").textContent=t.login;$("registerTab").textContent=t.register;$("orText").textContent=t.or;$("googleText").textContent=t.google;$("legalText").textContent=t.legal;
+const loginInputs=$("loginFields").querySelectorAll("input");loginInputs[0].placeholder=t.emailUser;loginInputs[0].setAttribute("aria-label",t.emailUser);loginInputs[1].placeholder=t.password;loginInputs[1].setAttribute("aria-label",t.password);$("forgotButton").textContent=t.forgot;
+const r=$("registerFields").querySelectorAll("input");[t.phone,t.email,t.username,t.first,t.last,t.password].forEach((v,i)=>{r[i].placeholder=v;r[i].setAttribute("aria-label",v)});setMode(mode);document.querySelectorAll(".locale-option").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.lang===lang)));$("localeMenu").hidden=true;$("localeButton").setAttribute("aria-expanded","false");}
+$("localeButton").addEventListener("click",()=>{const open=$("localeMenu").hidden;$("localeMenu").hidden=!open;$("localeButton").setAttribute("aria-expanded",String(open))});document.querySelectorAll(".locale-option").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+$("loginTab").addEventListener("click",()=>setMode("login"));$("registerTab").addEventListener("click",()=>setMode("register"));$("switchAction").addEventListener("click",()=>setMode(mode==="login"?"register":"login"));
+document.querySelectorAll(".toggle-password").forEach(b=>b.addEventListener("click",()=>{const input=$(b.dataset.target);input.type=input.type==="password"?"text":"password";b.textContent=input.type==="password"?"Show":"Hide"}));
+$("countryCode").addEventListener("change",e=>{const flags={"+20":"🇪🇬","+1":"🇺🇸","+33":"🇫🇷","+34":"🇪🇸","+351":"🇵🇹","+55":"🇧🇷","+44":"🇬🇧","+971":"🇦🇪","+966":"🇸🇦"};$("phoneFlag").textContent=flags[e.target.value]||"🌐"});
+$("forgotButton").addEventListener("click",()=>{const n=$("notice");n.textContent=copy[lang].forgotNotice;n.classList.add("show")});
+$("googleButton").addEventListener("click",()=>{const n=$("notice");n.textContent=copy[lang].googleNotice;n.classList.add("show")});
+$("authForm").addEventListener("submit",e=>{e.preventDefault();const n=$("notice");n.textContent=copy[lang].demo;n.classList.add("show")});
+setLanguage("en");
+</script>
+</body>
+</html>
